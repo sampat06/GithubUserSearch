@@ -37,7 +37,7 @@ class ProfileFragment : Fragment() {
         val adapter = RepoAdapter()
         repoRecyclerView.adapter = adapter
 
-        viewModel.repos.observe(viewLifecycleOwner) { repos ->
+        viewModel.repository.observe(viewLifecycleOwner) { repos ->
             adapter.submitList(repos)
         }
 

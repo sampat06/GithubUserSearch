@@ -8,7 +8,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameInputLayout"
-        android:hint="Enter GitHub Username"
+        android:hint="@string/search_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -22,18 +22,42 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/searchButton"
-        android:text="Search"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="6dp">
+    <LinearLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/purple_200">
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:visibility="gone"
+            android:layout_marginEnd="8dp"
+            android:id="@+id/loader"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:text="@string/search"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchText"/>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/errorText"
         android:textColor="@android:color/holo_red_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:textSize="18dp"
+        android:gravity="center"
+        android:layout_marginTop="18dp" />
 
 </LinearLayout>

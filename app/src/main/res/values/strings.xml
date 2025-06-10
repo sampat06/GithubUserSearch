@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GithubUserSearch</string>
+    <string name="search">Search</string>
+    <string name="loading">Loading...</string>
+    <string name="search_hint">Enter GitHub Username</string>
+    <string name="empty_search_error_text">Please enter GitHub username to search</string>
+    <string name="ok">Ok</string>
 </resources>
