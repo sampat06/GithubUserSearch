@@ -6,4 +6,6 @@
     <string name="empty_search_error_text">Please enter GitHub username to search</string>
     <string name="ok">Ok</string>
     <string name="repositories">Repositories</string>
+    <string name="welcome">Welcome!</string>
+    <string name="title">Search any user on GitHub and view their repositories</string>
 </resources>
