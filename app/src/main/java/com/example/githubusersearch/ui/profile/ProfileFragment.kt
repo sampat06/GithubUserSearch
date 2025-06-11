@@ -23,8 +23,7 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
         imBack.setOnClickListener {
-            viewModel.userDetails.postValue(null)
-            requireActivity().onBackPressed()
+            handleBackPress()
         }
 
         viewModel.userDetails.observe(viewLifecycleOwner) { user ->
@@ -49,17 +48,21 @@ class ProfileFragment : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    viewModel.userDetails.postValue(null)
-                    val navController = findNavController()
-                    val didPop = navController.popBackStack()
-                    if (!didPop) {
-                        requireActivity().finish()
-                    }
+                    handleBackPress()
                 }
             }
         )
 
     }.root
+
+    private fun handleBackPress() {
+        viewModel.userDetails.postValue(null)
+        val navController = findNavController()
+        val didPop = navController.popBackStack()
+        if (!didPop) {
+            requireActivity().finish()
+        }
+    }
 }
 
 

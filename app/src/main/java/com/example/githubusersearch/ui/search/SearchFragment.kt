@@ -25,17 +25,7 @@ class SearchFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
         viewModel.showingLoader.observe(viewLifecycleOwner) {
-            if (it) {
-                searchLayout.isClickable = false
-                loader.visibility = View.VISIBLE
-                searchText.text = resources.getString(R.string.loading)
-                searchLayout.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.gray))
-            } else {
-                searchLayout.isClickable = true
-                loader.visibility = View.GONE
-                searchText.text = resources.getString(R.string.search)
-                searchLayout.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.purple_200))
-            }
+            UIHandleWhenLoaderShows(isLoaderShown = it, binding = this)
         }
 
         searchLayout.setOnClickListener {
@@ -68,6 +58,27 @@ class SearchFragment : Fragment() {
         )
 
     }.root
+
+    private fun UIHandleWhenLoaderShows(isLoaderShown: Boolean, binding: FragmentSearchBinding) {
+        binding.apply {
+            if (isLoaderShown) {
+                searchLayout.isClickable = false
+                loader.visibility = View.VISIBLE
+                searchText.text = resources.getString(R.string.loading)
+                searchLayout.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.gray))
+            } else {
+                searchLayout.isClickable = true
+                loader.visibility = View.GONE
+                searchText.text = resources.getString(R.string.search)
+                searchLayout.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.purple_200
+                    )
+                )
+            }
+        }
+    }
 }
 
 private fun showSnackBar(view: View, message: String, okText: String) {
