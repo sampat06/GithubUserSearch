@@ -22,12 +22,17 @@ class ProfileFragment : Fragment() {
     ) = FragmentProfileBinding.inflate(inflater, container, false).apply {
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
-        viewModel.user.observe(viewLifecycleOwner) { user ->
+        imBack.setOnClickListener {
+            viewModel.userDetails.postValue(null)
+            requireActivity().onBackPressed()
+        }
+
+        viewModel.userDetails.observe(viewLifecycleOwner) { user ->
             username.text = user?.login
             followers.text = "${user?.followers} Followers"
             bio.text = user?.bio ?: "No Bio"
             repoCount.text = "${user?.public_repos} Repositories"
-            Glide.with(this@ProfileFragment).load(user?.avatar_url).into(avatar)
+            Glide.with(this@ProfileFragment).load(user?.avatar_url).circleCrop().into(avatar)
             user?.public_repos?.takeIf { it != 0 }?.let {
                 repositoriesText.visibility = View.VISIBLE
             }
@@ -36,7 +41,7 @@ class ProfileFragment : Fragment() {
         val adapter = RepoAdapter()
         repoRecyclerView.adapter = adapter
 
-        viewModel.repository.observe(viewLifecycleOwner) { repos ->
+        viewModel.repositoryDetails.observe(viewLifecycleOwner) { repos ->
             adapter.submitList(repos)
         }
 
@@ -44,6 +49,7 @@ class ProfileFragment : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
+                    viewModel.userDetails.postValue(null)
                     val navController = findNavController()
                     val didPop = navController.popBackStack()
                     if (!didPop) {

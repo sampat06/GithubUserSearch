@@ -47,14 +47,15 @@ class SearchFragment : Fragment() {
             )
         }
 
-        viewModel.error.observe(viewLifecycleOwner) {
-            errorText.text = it
-        }
-
-        viewModel.user.observe(viewLifecycleOwner) {
+        viewModel.userDetails.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(R.id.profileFragment)
+                usernameInput.text?.clear()
             }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            errorText.text = it
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -71,7 +72,7 @@ class SearchFragment : Fragment() {
 
 private fun showSnackBar(view: View, message: String, okText: String) {
     val snackbar = Snackbar
-        .make(view, message, com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
+        .make(view, message, Snackbar.LENGTH_LONG)
         .setAction(okText) { }
     snackbar.setActionTextColor(ContextCompat.getColor(view.context, R.color.black))
     val snackBarView = snackbar.view
